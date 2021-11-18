@@ -1,0 +1,20 @@
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    color: #bdc1c6;
+    background: #202124;
+}
+
+.hover\:text-blue-custom:hover {
+    --tw-text-opacity: 1;
+    color: rgba(138, 180, 248, var(--tw-text-opacity)) !important;
+}
