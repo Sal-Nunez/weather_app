@@ -9,6 +9,10 @@
     font-family: 'Roboto', sans-serif;
 }
 
+::-webkit-scrollbar {
+	display: none;
+}
+
 body {
     color: #bdc1c6;
     background: #202124;

@@ -1,18 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Loading from '../assets/images/clouds_loading.gif'
+import DrinkAd from '../assets/images/drink_ad.webp'
 
 const Current = props => {
-    const { weatherInfo, dateFormat, unitFormat, timeFormat, buttonTransformClass } = props
+    const { weatherInfo, dateFormat, unitFormat, timeFormat } = props
     return (
+        weatherInfo ?
         <div className="" style={{ width: '652px' }}>
             <h1 className="text-4xl my-3">Current Weather for {dateFormat(weatherInfo.daily[0].dt)}</h1>
             <div className="d-flex">
-
                 <div>
-
                     <div style={{ width: '652px' }} className="rounded bg-gradient-to-br from-blue-400 to-gray-300 d-flex justify-content-between text-black p-3">
                         <div>
-                            <span className="font-semibold">{weatherInfo.city}, {weatherInfo.state} Weather</span>
+                            <span className="font-semibold">{weatherInfo.state}</span>
                             <div className="text-sm text-gray-600 font-medium">As of {timeFormat(weatherInfo.current.dt)}</div>
                             <div className="text-5xl font-semibold">{unitFormat(weatherInfo.current.temp)}</div>
                             <span className="font-semibold" style={{ marginBottom: '-25px', textTransform: 'capitalize' }}>{weatherInfo.current.weather[0].description} </span>
@@ -23,7 +24,7 @@ const Current = props => {
                         </div>
                     </div>
                     <div style={{ width: '652px' }} className="mt-3 rounded bg-gradient-to-br to-blue-400 from-gray-300 text-black p-3">
-                        <p className="font-bold text-xl">Today's Forecast for {weatherInfo.city}, {weatherInfo.state}</p>
+                        <p className="font-bold text-xl">Today's Forecast for {weatherInfo.state}</p>
                         <div className="d-flex justify-content-between">
                             <div className="font-bold text-xl text-center ">
                                 <div>Morning</div>
@@ -44,12 +45,19 @@ const Current = props => {
                             </div>
                         </div>
                     </div>
+                    <div className="border mt-5"></div>
                 </div>
-                <div>
-                    Test
+                <div className="ms-4">
+                    <img style={{ width: '300px', height: '375px' }} src={DrinkAd} alt="" />
+                    <div className="border mt-5"></div>
                 </div>
             </div>
         </div>
+        :
+        <>
+        <h2>Make a search for Weather!</h2>
+        <img style={{marginTop: '-60px', marginBottom: '-60px'}} src={Loading} alt="" />
+        </>
     )
 }
 

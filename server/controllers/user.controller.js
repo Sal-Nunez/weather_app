@@ -36,7 +36,6 @@ module.exports.register = (req, res) => {
                 User.create(req.body)
                     .then(user => {
                         const userToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
-                        console.log(user)
                         res
                             .cookie("userToken", userToken, { httpOnly: true })
                             .json(user);
@@ -49,7 +48,6 @@ module.exports.register = (req, res) => {
 }
 
 module.exports.login = async (req, res) => {
-    console.log("Test")
     const user = await User.findOne({ email: req.body.email })
     if (user == null) return res.json({ error: { email: "Email not found" } })
     const pw = await bcrypt.compare(req.body.password, user.password)
@@ -57,7 +55,7 @@ module.exports.login = async (req, res) => {
     const userToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY)
     res
         .cookie("userToken", userToken, { httpOnly: true })
-        .json({ msg: 200 })
+        .json(user)
 }
 
 module.exports.logout = (req, res) => {
@@ -66,5 +64,23 @@ module.exports.logout = (req, res) => {
 }
 
 module.exports.checkLogin = (req, res) => {
-    res.json({ msg: 200 })
+    const id = req.params.id
+    User.findOne({_id: id})
+        .then(user => res.json(user))
+        .catch(err => res.status(400).json(err))
+}
+
+module.exports.addLocation = async (req, res) => {
+    const {location, id} = req.body
+    console.log(location, id)
+    const updatedUser = await User.findOneAndUpdate({_id: id}, {$push: {locations: location}}, { new: true })
+        res.json(updatedUser)
+}
+
+module.exports.removeLocation = async (req, res) => {
+    let {locationIndex, id, locations} = req.body
+    console.log(locationIndex, id, locations)
+
+    const updatedUser = await User.findOneAndUpdate({_id: id}, {$set: {locations: locations.filter((location, i) => i !== locationIndex)}}, { new: true})
+        res.json(updatedUser)
 }
