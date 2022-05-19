@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Current from '../components/Current'
 import { Switch, Route, useHistory, Link, useLocation } from 'react-router-dom'
-// import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Account from '../components/Account'
 import LocationsForm from '../components/LocationsForm'
 import SevenDayForecast from '../components/SevenDayForecast'
@@ -15,15 +14,13 @@ import HairAd from '../assets/videos/hair_ad.gif'
 
 const Home = (props) => {
 
-    // const [city, setCity] = useState("")
-    const { api_key, unit, weatherInfo, setWeatherInfo, user, setUser } = props
-    // const [weatherInfo, setWeatherInfo] = useState(null)
+    const { api_key, unit, weatherInfo, setWeatherInfo, user, setUser, newsWeatherLocation, setNewsWeatherLocation, wn, setWn } = props
 
 
-    // const [unit, setUnit] = useState("F")
     const history = useHistory()
     const location = useLocation()
     const [modalShow, setModalShow] = useState(false)
+    const [locationsError, setLocationsError] = useState("")
 
     const unitFormat = num => {
         return unit === "K" ? `${Math.round(num)}° K` : unit === "C" ? `${Math.round(num - 273.15)}° C` : `${Math.round((num - 273.15) * (9 / 5) + 32)}° F`
@@ -64,10 +61,6 @@ const Home = (props) => {
         return `col-auto btn btn-block me-3 mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold ${location.pathname === `/${path}` ? 'border-blue-500 bg-transparent text-gray-200' : 'bg-blue-500'}`
     }
 
-    // const cityHandler = (e) => {
-    //     setCity(e.target.value)
-    // }
-
     useEffect(() => {
         if (!weatherInfo) {
             if (navigator.geolocation) navigator.geolocation.getCurrentPosition(location)
@@ -79,6 +72,7 @@ const Home = (props) => {
                         const lat = res.data.results[0].geometry.location.lat
                         const state = res.data.results[0].formatted_address
                         const city = res.data.results[0].address_components[0].long_name
+                        setNewsWeatherLocation(state)
                         axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
                             .then(res => {
                                 setWeatherInfo({ ...res.data, city, state })
@@ -89,7 +83,7 @@ const Home = (props) => {
                     .catch(err => console.error(err))
             }
         }
-    }, [api_key, history, setWeatherInfo, weatherInfo])
+    }, [api_key, history, setWeatherInfo, weatherInfo, setNewsWeatherLocation])
 
     return (
         <>
@@ -100,10 +94,19 @@ const Home = (props) => {
                             <Link to="/" onClick={e => e.target.blur()} className={buttonTransformClass('')}>Current Weather</Link>
                             <Link to="/forecast" onClick={e => e.target.blur()} className={buttonTransformClass('forecast')}>7 Day Forecast</Link>
                             <Link to="/hourly" onClick={e => e.target.blur()} className={buttonTransformClass('hourly')}>Hourly Forecast</Link>
-                            <button className="bg-blue-500 col-auto btn btn-block me-3 mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold " onClick={() => setModalShow(true)}>
+                            {
+                                user ? 
+                            <button className="bg-blue-500 col-auto btn btn-block me-3 mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold " onClick={
+                                () => {
+                                    setModalShow(true)
+                                    setLocationsError("")
+                                }
+                                }>
                                 My Locations
                             </button>
-                            <LocationsForm setUser={setUser} user={user} show={modalShow} onHide={() => setModalShow(false)} />
+                            : null
+                            }
+                            <LocationsForm locationsError={locationsError} setLocationsError={setLocationsError} setUser={setUser} user={user} show={modalShow} onHide={() => setModalShow(false)} />
                         </div>
                         : null
                 }
@@ -125,7 +128,7 @@ const Home = (props) => {
             <div style={{ minWidth: '1004px' }} className="row ms-5 my-5">
                 <div className="col-auto mb-3">
                     <img style={{ width: '652px' }} src={LandscapeFlower} alt="" />
-                    <WeatherNews />
+                    <WeatherNews wn={wn} setWn={setWn} newsWeatherLocation={newsWeatherLocation} />
                 </div>
                 <div className="col-auto">
                     <div className="d-flex flex-column">

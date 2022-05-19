@@ -5,13 +5,18 @@ import DrinkAd from '../assets/images/drink_ad.webp'
 
 const Current = props => {
     const { weatherInfo, dateFormat, unitFormat, timeFormat } = props
+
+    // console.log(weatherInfo)
+
     return (
         weatherInfo ?
         <div className="" style={{ width: '652px' }}>
             <h1 className="text-4xl my-3">Current Weather for {dateFormat(weatherInfo.daily[0].dt)}</h1>
             <div className="d-flex">
                 <div>
-                    <div style={{ width: '652px' }} className="rounded bg-gradient-to-br from-blue-400 to-gray-300 d-flex justify-content-between text-black p-3">
+                    {/* change night gradient to gray-500 and morning gradient to ~yellow-100 */}
+                    <div style={{ width: '652px' }} className={`rounded bg-gradient-to-br d-flex justify-content-between text-black p-3
+                    ${weatherInfo.current.weather[0].icon.includes('n') ? 'from-blue-300 to-gray-500' : 'from-blue-300 to-yellow-100'}`} >
                         <div>
                             <span className="font-semibold">{weatherInfo.state}</span>
                             <div className="text-sm text-gray-600 font-medium">As of {timeFormat(weatherInfo.current.dt)}</div>
@@ -23,7 +28,9 @@ const Current = props => {
                             <span style={{ marginTop: '-25px' }}>{unitFormat(weatherInfo.current.temp)}</span>
                         </div>
                     </div>
-                    <div style={{ width: '652px' }} className="mt-3 rounded bg-gradient-to-br to-blue-400 from-gray-300 text-black p-3">
+                    {/* change night gradient to gray-500 and morning gradient to ~yellow-100 */}
+                    <div style={{ width: '652px' }} className={`mt-3 rounded bg-gradient-to-br to-blue-300 from-gray-500 text-black p-3
+                ${weatherInfo.current.weather[0].icon.includes('n') ? 'to-blue-300 from-gray-500' : 'to-blue-300 from-yellow-100'}`}>
                         <p className="font-bold text-xl">Today's Forecast for {weatherInfo.state}</p>
                         <div className="d-flex justify-content-between">
                             <div className="font-bold text-xl text-center ">

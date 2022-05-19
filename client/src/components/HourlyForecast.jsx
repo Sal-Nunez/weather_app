@@ -10,11 +10,13 @@ const HourlyForecast = props => {
     const { weatherInfo, dateFormat, unitFormat, timeFormat } = props
     const history = useHistory()
 
+    console.log(weatherInfo)
 
     if(!weatherInfo) {
         history.push('/')
         return null
     } else {
+        console.log(weatherInfo)
         return (
             <>
             <div className="d-flex">
@@ -24,7 +26,10 @@ const HourlyForecast = props => {
                     <h1 style={{width: '652px'}}>Hourly Forecast for {weatherInfo.state}</h1>
                     <div style={{ width: '652px', height: '910px', overflow: 'auto' }}>
                         {weatherInfo.hourly.map((weather, i) =>
-                            <div key={i} className={`text-black my-1 p-2 d-flex d-flex justify-content-between bg-gradient-to-br ${i % 2 === 0 ? 'from-blue-300 to-gray-300' : 'from-gray-300 to-blue-300'}`}>
+                            <div key={i} className={`text-black my-1 p-2 d-flex d-flex justify-content-between bg-gradient-to-br
+                            ${i % 2 === 0 && weather.weather[0].icon.includes("n") ? 'to-blue-300 from-gray-500' : i % 2 !== 0 && weather.weather[0].icon.includes("n") ? 'to-gray-500 from-blue-300': null}
+                            ${i % 2 === 0 && weather.weather[0].icon.includes("d") ? 'to-blue-300 from-yellow-100' : i % 2 !== 0 && weather.weather[0].icon.includes("d") ? 'to-yellow-100 from-blue-300': null}
+                            `}>
                                 <div>
                                     <div> {dateFormat(weather.dt, 's')} <span className="font-bold">{timeFormat(weather.dt)}</span> </div>
                                     <div>Temp: {unitFormat(weather.temp)}</div>

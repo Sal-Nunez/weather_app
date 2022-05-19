@@ -53,8 +53,16 @@ module.exports.login = async (req, res) => {
     const pw = await bcrypt.compare(req.body.password, user.password)
     if (!pw) return res.json({ error: { password: "Password is Incorrect" } })
     const userToken = jwt.sign({ id: user._id }, process.env.SECRET_KEY)
+    const hour = 3600000
+    const days = 10
+
     res
-        .cookie("userToken", userToken, { httpOnly: true })
+        .cookie("userToken", userToken, {
+            httpOnly: true,
+            path: '/',
+            maxAge: days * 24 * hour,
+            secure: true
+        })
         .json(user)
 }
 
@@ -72,14 +80,25 @@ module.exports.checkLogin = (req, res) => {
 
 module.exports.addLocation = async (req, res) => {
     const {location, id} = req.body
-    console.log(location, id)
-    const updatedUser = await User.findOneAndUpdate({_id: id}, {$push: {locations: location}}, { new: true })
-        res.json(updatedUser)
+
+    const user = await User.findOne({_id: id})
+
+    if(location.length > 1) {
+        
+        if (!user.locations.includes(location)) {
+            const updatedUser = await User.findOneAndUpdate({_id: id}, {$push: {locations: location}}, { new: true })
+            res.json(updatedUser)
+        } else {
+            res.json({msg: "Already In Your Locations"})
+        }
+
+    } else {
+        res.json({msg: "Must Have At Least Two Characters!"})
+    }
 }
 
 module.exports.removeLocation = async (req, res) => {
     let {locationIndex, id, locations} = req.body
-    console.log(locationIndex, id, locations)
 
     const updatedUser = await User.findOneAndUpdate({_id: id}, {$set: {locations: locations.filter((location, i) => i !== locationIndex)}}, { new: true})
         res.json(updatedUser)

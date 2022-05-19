@@ -12,5 +12,6 @@ module.exports = app => {
     app.get('/api/logout', basicAuth, UserController.logout)
     app.post('/api/users/locations/add', basicAuth, UserController.addLocation)
     app.post('/api/users/locations/remove', basicAuth, UserController.removeLocation)
-    // app.get('/api/weather/search', WeatherController.searchWeather)
+    app.get('/api/weather/search', WeatherController.weatherNews)
+    app.get('/api/weather/search/:location', WeatherController.weatherSearch)
 }

@@ -4,8 +4,8 @@ const bcrypt = require('bcrypt')
 const UserSchema = new mongoose.Schema({
     firstName: { type: String, required: [true, "First Name Required"] },
     lastName: { type: String, required: [true, "Last Name Required"] },
-    email: { type: String, required: [true, "Email is Required"], validate: { validator: val => /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/.test(val), message: "Please enter a valid Email" } },
-    locations: { type: [String], default: []},
+    email: { type: String, required: [true, "Email is Required"], validate: { validator: val => /^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$/.test(val), unique: true, message: "Please enter a valid Email" } },
+    locations: { type: [String], default: [], unique: true},
     password: { type: String, required: [true, "Password is Required"], minLength: [8, "Password must be at least 8 characters"], validate: { validator: val => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(val), message: "Password must have at least one special character, uppercase letter and number" } }
 }, { timestamps: true })
 

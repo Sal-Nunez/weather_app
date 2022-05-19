@@ -42,7 +42,9 @@ const Navbar = props => {
                             <option value="K">K °</option>
                         </select>
                     </span>
-                    <span className="ms-3 me-auto mb-2 mb-lg-0">
+                    {
+                        user ?
+                        <span className="ms-3 me-auto mb-2 mb-lg-0">
                         <label htmlFor="">My Locations: </label>
                         <select onChange={e => changeWeatherLocation(e)} className="nav-item ms-3 text-black">
                             <option  value="">---------</option>
@@ -56,6 +58,8 @@ const Navbar = props => {
                             }
                         </select>
                     </span>
+                    : null
+                            }
                         </div>
                     <div className="d-flex">
 
