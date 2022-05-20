@@ -54,7 +54,7 @@ const WeatherNews = (props) => {
     if (wn && wn.news_results.length > 0) {
         // console.log(`wn: ${JSON.stringify(wn)} news_results: ${wn.news_results}`)
         return (
-            <div style={{ width: '652px' }}>
+            <div className="show-desktop">
                 <div>
                     <div className="">
                         <h1 className="mt-5 text-2xl bg-blue-500 text-gray-800 px-3 py-1" >Weather In The News</h1>
@@ -77,7 +77,7 @@ const WeatherNews = (props) => {
                                                     <span className="" style={{ color: '#9aa0a6', fontSize: '12px' }}>{news.date}</span>
 
                                                 </div>
-                                                <img src={news.thumbnail} style={{ height: '112px', width: '112px' }} className="rounded-2xl" alt="..." />
+                                                <img src={news.thumbnail} style={{ height: '112px', MaxWidth: '112px' }} className="rounded-2xl" alt="..." />
                                             </div>
                                     })
                                     :
@@ -95,14 +95,14 @@ const WeatherNews = (props) => {
                                     <div>
                                         <h3 className=" text-2xl rounded-lg  text-center p-3 inline-block">{results.name}</h3>
                                     </div>
-                                    <div className="d-flex justify-content-between">
+                                    <div className="d-flex justify-content-between inside-modal">
                                         {
                                             results.news_results.map((news, i) =>
-                                                <div key={i} className="d-flex justify-content-between flex-column rounded-2xl" style={{ width: '212px', backgroundColor: '#202124', border: '#3c4043 1px solid' }}>
+                                                <div key={i} className="d-flex justify-content-between flex-column rounded-2xl" style={{ MaxWidth: '212px', backgroundColor: '#202124', border: '#3c4043 1px solid' }}>
                                                     <div key={i} className="" style={{ backgroundColor: '#202124' }} >
                                                         <img src={news.thumbnail} className="rounded-t-2xl" style={{ marginLeft: '-1px', marginTop: '-1px' }} alt="..." />
                                                         <div className="ms-3 pt-3" style={{ color: '#bdc1c6', fontSize: '12px' }}>{news.source}</div>
-                                                        <div className="mx-3 mb-4">
+                                                        <div className="mb-4">
                                                             <div onClick={e => goToSite(news.link)} style={{ fontSize: '16px' }} className=" hover:text-blue-custom cursor-pointer mt-1">{news.title}</div>
                                                         </div>
                                                     </div>
@@ -117,7 +117,7 @@ const WeatherNews = (props) => {
                     }
                 </div>
                 <nav className="" aria-label="Page navigation">
-                        <ul className="d-flex justify-center">
+                        <ul className="d-flex justify-center flex-wrap">
                             {
                                 start === 0 ?
                                     null :

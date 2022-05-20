@@ -112,7 +112,7 @@ const Home = (props) => {
 
     return (
         <>
-            <div className="" style={{ marginLeft: '60px', minWidth: '1004px' }}>
+            <div className="" style={{maxWidth: '1004px' }}>
                 {
                     weatherInfo ?
                         <div className="mt-3">
@@ -150,16 +150,16 @@ const Home = (props) => {
                     </Route>
                 </Switch>
             </div>
-            <div style={{ minWidth: '1004px' }} className="row ms-5 my-5">
-                <div className="col-auto mb-3">
-                    <img className="weatherNews" style={{ width: '652px' }} src={LandscapeFlower} alt="" />
+            <div style={{ maxWidth: '1004px'}} className="d-flex my-5 inside-modal">
+                <div className="mb-3">
+                    <img className="weatherNews show-mobile show-desktop" src={LandscapeFlower} alt="" />
                     <WeatherNews wn={wn} setWn={setWn} newsWeatherLocation={newsWeatherLocation} />
                 </div>
-                <div className="col-auto">
+                <div className="">
                     <div className="d-flex flex-column">
-                        <img className="mb-5" style={{ width: '300px' }} src={PizzaAd} alt="" />
-                        <div className="border my-5"></div>
-                        <img className="mt-5" style={{ width: '300px' }} src={HairAd} alt="" />
+                        <img className="show-mobile show-desktop-small-image" src={PizzaAd} alt="" />
+                        <div className="border m-5"></div>
+                        <img className="show-mobile show-desktop-small-image" src={HairAd} alt="" />
                     </div>
                 </div>
             </div>

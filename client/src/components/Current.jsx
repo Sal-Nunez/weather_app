@@ -9,11 +9,11 @@ const Current = props => {
 
     return (
         weatherInfo ?
-        <div className="" style={{ width: '652px' }}>
+        <div className="">
             <h1 className="text-4xl my-3">Current Weather for {dateFormat(weatherInfo.daily[0].dt)}</h1>
-            <div className="d-flex">
+            <div className="d-flex inside-modal">
                 <div>
-                    <div style={{ width: '652px' }} className={`rounded bg-gradient-to-br d-flex justify-content-between text-black p-3
+                    <div className={`show-desktop rounded bg-gradient-to-br d-flex justify-content-between text-black p-3
                     ${weatherInfo.current.weather[0].icon.includes('n') ? 'from-blue-300 to-gray-500' : 'from-blue-300 to-yellow-100'}`} >
                         <div>
                             <span className="font-semibold">{weatherInfo.state}</span>
@@ -26,14 +26,14 @@ const Current = props => {
                             <span style={{ marginTop: '-25px' }}>{unitFormat(weatherInfo.current.temp)}</span>
                         </div>
                     </div>
-                    <div style={{ width: '652px' }} className={`mt-3 rounded bg-gradient-to-br to-blue-300 from-gray-500 text-black p-3
+                    <div className={`mt-3 rounded bg-gradient-to-br to-blue-300 from-gray-500 text-black p-3
                 ${weatherInfo.current.weather[0].icon.includes('n') ? 'to-blue-300 from-gray-500' : 'to-blue-300 from-yellow-100'}`}>
                         <p className="font-bold text-xl">Today's Forecast for {weatherInfo.state}</p>
                         <div className="d-flex justify-content-between">
                             <div className="font-bold text-xl text-center ">
                                 <div>Morning</div>
                                 <div className="text-blue-600">{unitFormat(weatherInfo.daily[0].temp.morn)}</div>
-                                <Link to="/hourly" onClick={e => e.target.blur()} className={"col-auto btn btn-block mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold bg-blue-500 mt-4"}>Hourly</Link>
+                            
                             </div>
                             <div className="font-bold text-xl text-center ">
                                 <div>Afternoon</div>
@@ -48,12 +48,13 @@ const Current = props => {
                                 <div className="text-blue-600">{unitFormat(weatherInfo.daily[0].temp.night)}</div>
                             </div>
                         </div>
+                        <Link to="/hourly" onClick={e => e.target.blur()} className={"col-auto btn btn-block mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold bg-blue-500 mt-4"}>Hourly</Link>
                     </div>
-                    <div className="border mt-5"></div>
+                    <div className="border m-5"></div>
                 </div>
-                <div className="ms-4">
-                    <img style={{ width: '300px', height: '375px' }} src={DrinkAd} alt="" />
-                    <div className="border mt-5"></div>
+                <div className="">
+                    <img className="show-mobile show-desktop-small-image" src={DrinkAd} alt="" />
+                    <div className="border m-5"></div>
                 </div>
             </div>
         </div>

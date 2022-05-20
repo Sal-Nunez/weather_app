@@ -50,7 +50,7 @@ const LocationsForm = props => {
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
-            className=""
+            className="container"
         >
 
             <Modal.Header className="bg-gray-700">
@@ -60,8 +60,8 @@ const LocationsForm = props => {
                 <CloseButton onHide={onHide} />
             </Modal.Header>
             <Modal.Body className="bg-gray-700">
-                <div className="bg-gray-700 d-flex justify-content-between">
-                    <form className="" onSubmit={onSubmitHandler}>
+                <div className="bg-gray-700 d-flex justify-content-between inside-modal">
+                    <form className="mb-3" onSubmit={onSubmitHandler}>
                         <div className="mb-3">
                             <input className="form-control" placeholder=" Add Location Here..." onChange={e => setNewLocation(e.target.value)} type="text" value={newLocation} />
                         </div>
@@ -72,14 +72,14 @@ const LocationsForm = props => {
                         }
                         <button className="btn btn-primary"  >Add Location</button>
                     </form>
-                    <div className="ms-3 border border-dark" ></div>
-                    <div className="d-flex">
+                    <div className="m-3 border border-dark" ></div>
+                    <div className="mb-3 d-flex">
 
                         <div ref={scrollElement} className="ms-3 h-52 overflow-y-auto ">
                             {
                                 user ?
-                                    user.locations.map((location, i) =>
-                                        <div key={i}>
+                                user.locations.map((location, i) =>
+                                <div key={i}>
 
                                             <div className="d-flex mt-2 justify-end">
                                                 <span>{`${location}${i === 0 ? '*' : ""}`}</span>
@@ -90,11 +90,12 @@ const LocationsForm = props => {
                                         </div>
                                     )
                                     : null
-                            }
+                                }
                         </div>
                     </div>
+                                <div className="m-3 border border-dark" ></div>
                     <span className="absolute bottom-1 right-1" >*Primary Location</span>
-                        <div className="d-flex flex-1 justify-between">
+                        <div className="d-flex flex-1 justify-between mb-3">
 
                         <img className="w-10 h-10" src={HappySun} alt="" />
                         
