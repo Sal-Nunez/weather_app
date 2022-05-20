@@ -16,7 +16,6 @@ const Home = (props) => {
 
     const { api_key, unit, weatherInfo, setWeatherInfo, user, setUser, newsWeatherLocation, setNewsWeatherLocation, wn, setWn } = props
 
-
     const history = useHistory()
     const location = useLocation()
     const [modalShow, setModalShow] = useState(false)
@@ -63,27 +62,53 @@ const Home = (props) => {
 
     useEffect(() => {
         if (!weatherInfo) {
-            if (navigator.geolocation) navigator.geolocation.getCurrentPosition(location)
-            function location(location) {
-
-                axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.coords.latitude}, ${location.coords.longitude}&key=AIzaSyDAmANHssnJ_6cRIuRyTbAITMkOUz9_EZo`)
+            if (navigator.geolocation === {}) {
+                navigator.geolocation.getCurrentPosition(location)
+                function location(location) {
+                    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.coords.latitude}, ${location.coords.longitude}&key=AIzaSyDAmANHssnJ_6cRIuRyTbAITMkOUz9_EZo`)
+                        .then(res => {
+                            const lon = res.data.results[0].geometry.location.lng
+                            const lat = res.data.results[0].geometry.location.lat
+                            const state = res.data.results[0].formatted_address
+                            const city = res.data.results[0].address_components[0].long_name
+                            setNewsWeatherLocation(state)
+                            axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
+                                .then(res => {
+                                    setWeatherInfo({ ...res.data, city, state })
+                                    history.push('/')
+                                })
+                                .catch(err => console.log(err))
+                        })
+                        .catch(err => console.error(err))
+                }
+            } else if (user) {
+                if (user.locations.length > 0) {
+                    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${user.locations[0]}&key=AIzaSyDAmANHssnJ_6cRIuRyTbAITMkOUz9_EZo`)
+            .then(res => {
+                const lon = res.data.results[0].geometry.location.lng
+                const lat = res.data.results[0].geometry.location.lat
+                const state = res.data.results[0].formatted_address
+                const city = res.data.results[0].address_components[0].long_name
+                setNewsWeatherLocation(state)
+                axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
                     .then(res => {
-                        const lon = res.data.results[0].geometry.location.lng
-                        const lat = res.data.results[0].geometry.location.lat
-                        const state = res.data.results[0].formatted_address
-                        const city = res.data.results[0].address_components[0].long_name
-                        setNewsWeatherLocation(state)
-                        axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
+                        setWeatherInfo({ ...res.data, city, state })
+                        history.push('/')
+                        axios.get(`http://localhost:8000/api/weather/search/${state}`)
                             .then(res => {
-                                setWeatherInfo({ ...res.data, city, state })
-                                history.push('/')
+                                // console.log(res.data, "line 26")
+                                setWn(res.data)
                             })
-                            .catch(err => console.log(err))
+                            .catch(err => console.error(err))
                     })
-                    .catch(err => console.error(err))
+                    .catch(err => console.log(err))
+            })
+            .catch(err => console.error(err))
+                }
             }
+
         }
-    }, [api_key, history, setWeatherInfo, weatherInfo, setNewsWeatherLocation])
+    }, [api_key, history, setWeatherInfo, weatherInfo, setNewsWeatherLocation, user, setWn, wn])
 
     return (
         <>
@@ -95,16 +120,16 @@ const Home = (props) => {
                             <Link to="/forecast" onClick={e => e.target.blur()} className={buttonTransformClass('forecast')}>7 Day Forecast</Link>
                             <Link to="/hourly" onClick={e => e.target.blur()} className={buttonTransformClass('hourly')}>Hourly Forecast</Link>
                             {
-                                user ? 
-                            <button className="bg-blue-500 col-auto btn btn-block me-3 mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold " onClick={
-                                () => {
-                                    setModalShow(true)
-                                    setLocationsError("")
-                                }
-                                }>
-                                My Locations
-                            </button>
-                            : null
+                                user ?
+                                    <button className="bg-blue-500 col-auto btn btn-block me-3 mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold " onClick={
+                                        () => {
+                                            setModalShow(true)
+                                            setLocationsError("")
+                                        }
+                                    }>
+                                        My Locations
+                                    </button>
+                                    : null
                             }
                             <LocationsForm locationsError={locationsError} setLocationsError={setLocationsError} setUser={setUser} user={user} show={modalShow} onHide={() => setModalShow(false)} />
                         </div>
@@ -127,7 +152,7 @@ const Home = (props) => {
             </div>
             <div style={{ minWidth: '1004px' }} className="row ms-5 my-5">
                 <div className="col-auto mb-3">
-                    <img style={{ width: '652px' }} src={LandscapeFlower} alt="" />
+                    <img className="weatherNews" style={{ width: '652px' }} src={LandscapeFlower} alt="" />
                     <WeatherNews wn={wn} setWn={setWn} newsWeatherLocation={newsWeatherLocation} />
                 </div>
                 <div className="col-auto">

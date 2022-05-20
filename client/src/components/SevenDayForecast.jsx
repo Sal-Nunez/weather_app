@@ -10,7 +10,6 @@ const SevenDayForecast = props => {
         history.push('/')
         return null
     } else {
-        // console.log(weatherInfo.current.weather[0].icon)
         return (
             <div style={{ width: '652px' }}>
                 <h1>7 Day Forecast for {weatherInfo.state}</h1>

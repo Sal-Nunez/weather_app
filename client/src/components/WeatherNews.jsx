@@ -15,16 +15,13 @@ const WeatherNews = (props) => {
 
     useEffect(() => {
         if (!hasLoaded) {
-            console.log('inIf')
             setHasLoaded(true)
             axios.get(`http://localhost:8000/api/weather/search/`)
                 .then(res => {
-                    console.log(res.data, "line 13")
                     setWn(res.data)
                 })
                 .catch(err => console.error(err))
         }
-
     }, [hasLoaded, setWn])
 
     const pageHandler = (e) => {
@@ -57,7 +54,7 @@ const WeatherNews = (props) => {
     if (wn && wn.news_results.length > 0) {
         // console.log(`wn: ${JSON.stringify(wn)} news_results: ${wn.news_results}`)
         return (
-            <div className="weatherNews" style={{ width: '652px' }}>
+            <div style={{ width: '652px' }}>
                 <div>
                     <div className="">
                         <h1 className="mt-5 text-2xl bg-blue-500 text-gray-800 px-3 py-1" >Weather In The News</h1>

@@ -4,9 +4,8 @@ import Loading from '../assets/images/clouds_loading.gif'
 import DrinkAd from '../assets/images/drink_ad.webp'
 
 const Current = props => {
-    const { weatherInfo, dateFormat, unitFormat, timeFormat } = props
 
-    // console.log(weatherInfo)
+    const { weatherInfo, dateFormat, unitFormat, timeFormat } = props
 
     return (
         weatherInfo ?
@@ -14,7 +13,6 @@ const Current = props => {
             <h1 className="text-4xl my-3">Current Weather for {dateFormat(weatherInfo.daily[0].dt)}</h1>
             <div className="d-flex">
                 <div>
-                    {/* change night gradient to gray-500 and morning gradient to ~yellow-100 */}
                     <div style={{ width: '652px' }} className={`rounded bg-gradient-to-br d-flex justify-content-between text-black p-3
                     ${weatherInfo.current.weather[0].icon.includes('n') ? 'from-blue-300 to-gray-500' : 'from-blue-300 to-yellow-100'}`} >
                         <div>
@@ -28,7 +26,6 @@ const Current = props => {
                             <span style={{ marginTop: '-25px' }}>{unitFormat(weatherInfo.current.temp)}</span>
                         </div>
                     </div>
-                    {/* change night gradient to gray-500 and morning gradient to ~yellow-100 */}
                     <div style={{ width: '652px' }} className={`mt-3 rounded bg-gradient-to-br to-blue-300 from-gray-500 text-black p-3
                 ${weatherInfo.current.weather[0].icon.includes('n') ? 'to-blue-300 from-gray-500' : 'to-blue-300 from-yellow-100'}`}>
                         <p className="font-bold text-xl">Today's Forecast for {weatherInfo.state}</p>

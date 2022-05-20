@@ -55,12 +55,11 @@ const App = () => {
                 axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
                     .then(res => {
                         setWeatherInfo({ ...res.data, city, state })
+                        console.log(weatherInfo)
                         history.push('/')
                         axios.get(`http://localhost:8000/api/weather/search/${state}`)
                             .then(res => {
-                                console.log(res.data, "line 26")
                                 setWn(res.data)
-                                console.log(wn)
                             })
                             .catch(err => console.error(err))
                     })

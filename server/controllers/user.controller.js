@@ -14,7 +14,7 @@ module.exports.updatePassword = (req, res) => {
     const { password, confirmPassword } = req.body
     password === confirmPassword ?
         (
-            bcrypt.hash(password, 10).then(hash => {password = hash}),
+            bcrypt.hash(password, 10).then(hash => { password = hash }),
             User.findOneAndUpdate({ _id: req.params.id }, { $set: { password: password } }, { new: true, runValidators: true })
                 .then(user => res.json(user))
                 .catch(err => res.status(400).json(err))
@@ -73,33 +73,46 @@ module.exports.logout = (req, res) => {
 
 module.exports.checkLogin = (req, res) => {
     const id = req.params.id
-    User.findOne({_id: id})
+    User.findOne({ _id: id })
         .then(user => res.json(user))
         .catch(err => res.status(400).json(err))
 }
 
 module.exports.addLocation = async (req, res) => {
-    const {location, id} = req.body
+    const { location, id } = req.body
 
-    const user = await User.findOne({_id: id})
+    const user = await User.findOne({ _id: id })
 
-    if(location.length > 1) {
-        
+    if (location.length > 1) {
+
         if (!user.locations.includes(location)) {
-            const updatedUser = await User.findOneAndUpdate({_id: id}, {$push: {locations: location}}, { new: true })
+            const updatedUser = await User.findOneAndUpdate({ _id: id }, { $push: { locations: location } }, { new: true })
             res.json(updatedUser)
         } else {
-            res.json({msg: "Already In Your Locations"})
+            res.json({ msg: "Already In Your Locations" })
         }
 
     } else {
-        res.json({msg: "Must Have At Least Two Characters!"})
+        res.json({ msg: "Must Have At Least Two Characters!" })
     }
 }
 
-module.exports.removeLocation = async (req, res) => {
-    let {locationIndex, id, locations} = req.body
+module.exports.changePrimaryLocation = async (req, res) => {
+    const { id, location, locations } = req.body
 
-    const updatedUser = await User.findOneAndUpdate({_id: id}, {$set: {locations: locations.filter((location, i) => i !== locationIndex)}}, { new: true})
-        res.json(updatedUser)
+    const updatedLocations = [...locations]
+    locations.forEach((location1, i) => {
+        if (location1 === location && i !== 0) {
+            [updatedLocations[0], updatedLocations[i]] = [updatedLocations[i], updatedLocations[0]]
+        }})
+    const updatedUser = await User.findOneAndUpdate({ _id: id }, { $set: { locations: updatedLocations } }, { new: true })
+    res.json(updatedUser ? updatedUser : { msg: "something went wrong" })
+
+}
+
+module.exports.removeLocation = async (req, res) => {
+    let { locationIndex, id, locations } = req.body
+
+    const updatedUser = await User.findOneAndUpdate({ _id: id }, { $set: { locations: locations.filter((location, i) => i !== locationIndex) } }, { new: true })
+    res.json(updatedUser ? updatedUser : { msg: "something went wrong" })
 }

@@ -15,7 +15,6 @@ const Login = (props) => {
         e.preventDefault()
         axios.post('http://localhost:8000/api/login', { email, password }, { withCredentials: true })
             .then(res => {
-                console.log(res, "Test")
                 if(res.data.error) {
                     if (res.data.error.email) setEmailErr(res.data.error.email)
                     else setEmailErr("")

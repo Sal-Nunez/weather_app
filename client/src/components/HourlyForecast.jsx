@@ -4,19 +4,15 @@ import Watermelon from '../assets/images/watermelon_ad.webp'
 import SaleAd from '../assets/images/sale ad.webp'
 import FakeAdTop from '../assets/images/fakeadtop.gif'
 
-
 const HourlyForecast = props => {
 
     const { weatherInfo, dateFormat, unitFormat, timeFormat } = props
     const history = useHistory()
 
-    console.log(weatherInfo)
-
     if(!weatherInfo) {
         history.push('/')
         return null
     } else {
-        console.log(weatherInfo)
         return (
             <>
             <div className="d-flex">
@@ -31,7 +27,7 @@ const HourlyForecast = props => {
                             ${i % 2 === 0 && weather.weather[0].icon.includes("d") ? 'to-blue-300 from-yellow-100' : i % 2 !== 0 && weather.weather[0].icon.includes("d") ? 'to-yellow-100 from-blue-300': null}
                             `}>
                                 <div>
-                                    <div> {dateFormat(weather.dt, 's')} <span className="font-bold">{timeFormat(weather.dt)}</span> </div>
+                                    <div> {dateFormat(weather.dt, 's')} <span className="font-bold">{timeFormat(weather.dt + weatherInfo.timezone_offset)}</span> </div>
                                     <div>Temp: {unitFormat(weather.temp)}</div>
                                     <div>Feels Like: {unitFormat(weather.feels_like)}</div>
                                 </div>
