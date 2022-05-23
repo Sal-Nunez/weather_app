@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.daafef89.chunk.css",
+    "main.js": "/static/js/main.fcdd29c6.chunk.js",
+    "main.js.map": "/static/js/main.fcdd29c6.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.e64d1ac0.js",
+    "runtime-main.js.map": "/static/js/runtime-main.e64d1ac0.js.map",
+    "static/js/2.500de19f.chunk.js": "/static/js/2.500de19f.chunk.js",
+    "static/js/2.500de19f.chunk.js.map": "/static/js/2.500de19f.chunk.js.map",
+    "static/js/3.ab4ab073.chunk.js": "/static/js/3.ab4ab073.chunk.js",
+    "static/js/3.ab4ab073.chunk.js.map": "/static/js/3.ab4ab073.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.daafef89.chunk.css.map": "/static/css/main.daafef89.chunk.css.map",
+    "static/js/2.500de19f.chunk.js.LICENSE.txt": "/static/js/2.500de19f.chunk.js.LICENSE.txt",
+    "static/media/Logo.50a2dbb4.svg": "/static/media/Logo.50a2dbb4.svg",
+    "static/media/clouds_loading.d7f2db7c.gif": "/static/media/clouds_loading.d7f2db7c.gif",
+    "static/media/drink_ad.4b9b5471.webp": "/static/media/drink_ad.4b9b5471.webp",
+    "static/media/fakeadtop.6ee94276.gif": "/static/media/fakeadtop.6ee94276.gif",
+    "static/media/hair_ad.3768ac99.gif": "/static/media/hair_ad.3768ac99.gif",
+    "static/media/happy_sun.5dea0921.gif": "/static/media/happy_sun.5dea0921.gif",
+    "static/media/landscape_flower_ad.f227cff4.gif": "/static/media/landscape_flower_ad.f227cff4.gif",
+    "static/media/news_loading.712aa6c9.gif": "/static/media/news_loading.712aa6c9.gif",
+    "static/media/pizza_ad.39b714b5.gif": "/static/media/pizza_ad.39b714b5.gif",
+    "static/media/sale ad.1b884e07.webp": "/static/media/sale ad.1b884e07.webp",
+    "static/media/watermelon_ad.42216e39.webp": "/static/media/watermelon_ad.42216e39.webp"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e64d1ac0.js",
+    "static/js/2.500de19f.chunk.js",
+    "static/css/main.daafef89.chunk.css",
+    "static/js/main.fcdd29c6.chunk.js"
+  ]
+}
