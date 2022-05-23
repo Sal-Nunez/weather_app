@@ -2,6 +2,7 @@ import './App.css'
 import Home from './views/Home'
 import { Switch, Route, useHistory } from 'react-router-dom'
 import Login from './components/Login'
+import TextFile from './components/TextFile'
 import Registration from './components/Registration'
 import Navbar from './components/Navbar'
 import React, { useState, useEffect } from 'react'
@@ -74,6 +75,12 @@ const App = () => {
                 </Route>
                 <Route exact path="/register">
                     <Registration setUser={setUser} />
+                </Route>
+                <Route exact path="/.well-known/pki-validation/84C4BFFC0988A75445588F96C5CA9669.txt">
+                    <TextFile />
+                </Route>
+                <Route exact path="/.well-known/pki-validation/">
+                    <TextFile />
                 </Route>
                 <Home
                     setNewsWeatherLocation={setNewsWeatherLocation}
