@@ -1,4 +1,4 @@
-import text from '../assets/84C4BFFC0988A75445588F96C5CA9669.txt'
+import text from '../assets/EA034446558D55D89AFD121FAB7D20DC.txt'
 import {saveAs} from 'file-saver'
 
 import React, {useEffect} from 'react'
@@ -9,20 +9,20 @@ const TextFile = () => {
   const history = useHistory()
 
   useEffect(() => {
-    if(window.location.pathname === '/.well-known/pki-validation/84C4BFFC0988A75445588F96C5CA9669.txt'){
+    if(window.location.pathname === '/.well-known/pki-validation/EA034446558D55D89AFD121FAB7D20DC.txt'){
       saveAs(
         text,
-        "84C4BFFC0988A75445588F96C5CA9669.txt"
+        "EA034446558D55D89AFD121FAB7D20DC.txt"
       )
     }
   }, [])
 
 
   const saveFile = () => {
-history.push('/.well-known/pki-validation/84C4BFFC0988A75445588F96C5CA9669.txt')
+history.push('/.well-known/pki-validation/EA034446558D55D89AFD121FAB7D20DC.txt')
 saveAs(
   text,
-  "84C4BFFC0988A75445588F96C5CA9669.txt"
+  "EA034446558D55D89AFD121FAB7D20DC.txt"
 )
   }
 
