@@ -1,7 +1,7 @@
 {
   "main.css": "/static/css/main.c9768e54.chunk.css",
-  "main.js": "/static/js/main.1c3fbd3e.chunk.js",
-  "main.js.map": "/static/js/main.1c3fbd3e.chunk.js.map",
+  "main.js": "/static/js/main.ebe6a1ca.chunk.js",
+  "main.js.map": "/static/js/main.ebe6a1ca.chunk.js.map",
   "static/js/1.08f2d8bc.chunk.js": "/static/js/1.08f2d8bc.chunk.js",
   "static/js/1.08f2d8bc.chunk.js.map": "/static/js/1.08f2d8bc.chunk.js.map",
   "static/js/2.a0e80f26.chunk.js": "/static/js/2.a0e80f26.chunk.js",
@@ -9,7 +9,7 @@
   "runtime~main.js": "/static/js/runtime~main.c17c8fb1.js",
   "runtime~main.js.map": "/static/js/runtime~main.c17c8fb1.js.map",
   "static/media/happy_sun.gif": "/static/media/happy_sun.ba63ac0e.gif",
-  "static/media/84C4BFFC0988A75445588F96C5CA9669.txt": "/static/media/84C4BFFC0988A75445588F96C5CA9669.07993326.txt",
+  "static/media/EA034446558D55D89AFD121FAB7D20DC.txt": "/static/media/EA034446558D55D89AFD121FAB7D20DC.4f5e570e.txt",
   "static/media/clouds_loading.gif": "/static/media/clouds_loading.860838c4.gif",
   "static/media/drink_ad.webp": "/static/media/drink_ad.95da131a.webp",
   "static/media/watermelon_ad.webp": "/static/media/watermelon_ad.638364f2.webp",
@@ -22,6 +22,6 @@
   "static/media/Logo.svg": "/static/media/Logo.172f3ed5.svg",
   "static/css/main.c9768e54.chunk.css.map": "/static/css/main.c9768e54.chunk.css.map",
   "index.html": "/index.html",
-  "precache-manifest.e1ec24026c1840a1be5726f02c53545f.js": "/precache-manifest.e1ec24026c1840a1be5726f02c53545f.js",
+  "precache-manifest.4795ee74aca962dec25929588a507947.js": "/precache-manifest.4795ee74aca962dec25929588a507947.js",
   "service-worker.js": "/service-worker.js"
 }
