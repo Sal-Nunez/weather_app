@@ -76,7 +76,7 @@ const App = () => {
                 <Route exact path="/register">
                     <Registration setUser={setUser} />
                 </Route>
-                <Route exact path="/.well-known/pki-validation/EA034446558D55D89AFD121FAB7D20DC.txt">
+                <Route exact path="/.well-known/pki-validation/F6D175921AB16A6DFD59D8EAC37F5038.txt">
                     <TextFile />
                 </Route>
                 <Route exact path="/.well-known/pki-validation/">
