@@ -13,14 +13,16 @@ const HourlyForecast = props => {
         history.push('/')
         return null
     } else {
+        // style={{ width: '652px', height: '910px', overflow: 'auto' }}
         return (
             <>
-            <div className="d-flex">
+            <div className="d-flex inside-modal">
                 <div>
-                    <img className=" mt-1" style={{ width: '652px', height: '300px' }} src={FakeAdTop} alt="" />
-                    <div style={{width: '652px'}} className="border mt-4 mb-4"></div>
-                    <h1 style={{width: '652px'}}>Hourly Forecast for {weatherInfo.state}</h1>
-                    <div style={{ width: '652px', height: '910px', overflow: 'auto' }}>
+                    <img className=" mt-1 show-mobile show-desktop" src={FakeAdTop} alt="" />
+                    <div className="border mt-4 mb-4"></div>
+                    <h1 className="show-mobile show-desktop">Hourly Forecast for {weatherInfo.state}</h1>
+                    <div style={{height: '910px', overflow: 'auto'}} className="show-mobile show-desktop overflow-auto"> 
+                    
                         {weatherInfo.hourly.map((weather, i) =>
                             <div key={i} className={`text-black my-1 p-2 d-flex d-flex justify-content-between bg-gradient-to-br
                             ${i % 2 === 0 && weather.weather[0].icon.includes("n") ? 'to-blue-300 from-gray-500' : i % 2 !== 0 && weather.weather[0].icon.includes("n") ? 'to-gray-500 from-blue-300': null}
@@ -38,11 +40,11 @@ const HourlyForecast = props => {
                             </div>
                         )}</div>
                 </div>
-                <div className="ms-3 mt-1">
+                <div className="mt-1">
                     <div className="d-flex flex-column">
-                        <img className="mb-5" style={{ width: '300px' }} src={Watermelon} alt="" />
+                        <img className="mb-5 show-mobile show-desktop-small-image" style={{ width: '300px' }} src={Watermelon} alt="" />
                         <div style={{}} className="border my-5"></div>
-                        <img className="mt-5" style={{ width: '300px' }} src={SaleAd} alt="" />
+                        <img className="mt-5 show-mobile show-desktop-small-image" style={{ width: '300px' }} src={SaleAd} alt="" />
                     </div>
                 </div>
             </div>

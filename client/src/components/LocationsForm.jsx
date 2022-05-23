@@ -8,12 +8,11 @@ import HappySun from '../assets/images/happy_sun.gif'
 const LocationsForm = props => {
     const { user, setUser, locationsError, setLocationsError, onHide, show } = props
     const [newLocation, setNewLocation] = useState("")
-    const [primaryLocation, setPrimaryLocation] = useState(user ? user.locations[0] : null)
+    const [primaryLocation, setPrimaryLocation] = useState(user ? user.locations[0] : "")
     const scrollElement = useRef()
 
     const scrollToBot = () => {
-        scrollElement.current.scroll({ top: scrollElement.current.scrollHeight, behavior: 'smooth' })
-    }
+        scrollElement.current.scroll({ top: scrollElement.current.scrollHeight, behavior: 'smooth' })}
 
     const onSubmitHandler = (e) => {
         setLocationsError("")
@@ -45,14 +44,12 @@ const LocationsForm = props => {
     }
 
     return (
-
         <Modal show={show}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
             className="container"
         >
-
             <Modal.Header className="bg-gray-700">
                 <Modal.Title className="bg-gray-700" id="contained-modal-title-vcenter">
                     Add/Remove Locations
@@ -63,7 +60,7 @@ const LocationsForm = props => {
                 <div className="bg-gray-700 d-flex justify-content-between inside-modal">
                     <form className="mb-3" onSubmit={onSubmitHandler}>
                         <div className="mb-3">
-                            <input className="form-control" placeholder=" Add Location Here..." onChange={e => setNewLocation(e.target.value)} type="text" value={newLocation} />
+                            <input className="form-control" placeholder="Add Location Here..." onChange={e => setNewLocation(e.target.value)} type="text" value={newLocation} />
                         </div>
                         {
                             locationsError ?
@@ -121,7 +118,6 @@ const LocationsForm = props => {
             </Modal.Footer>
         </Modal>
     )
-
 }
 
 export default LocationsForm

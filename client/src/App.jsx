@@ -7,9 +7,7 @@ import Navbar from './components/Navbar'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
-
 const App = () => {
-
     const api_key = '75aecf1e93859f55562ef3839ff57613'
     const history = useHistory()
     const [weatherInfo, setWeatherInfo] = useState(null)
@@ -55,7 +53,6 @@ const App = () => {
                 axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
                     .then(res => {
                         setWeatherInfo({ ...res.data, city, state })
-                        console.log(weatherInfo)
                         history.push('/')
                         axios.get(`http://localhost:8000/api/weather/search/${state}`)
                             .then(res => {

@@ -26,11 +26,11 @@ const Current = props => {
                             <span style={{ marginTop: '-25px' }}>{unitFormat(weatherInfo.current.temp)}</span>
                         </div>
                     </div>
-                    <div className={`mt-3 rounded bg-gradient-to-br to-blue-300 from-gray-500 text-black p-3
+                    <div className={`mt-3 show-desktop rounded bg-gradient-to-br to-blue-300 from-gray-500 text-black p-3
                 ${weatherInfo.current.weather[0].icon.includes('n') ? 'to-blue-300 from-gray-500' : 'to-blue-300 from-yellow-100'}`}>
                         <p className="font-bold text-xl">Today's Forecast for {weatherInfo.state}</p>
                         <div className="d-flex justify-content-between">
-                            <div className="font-bold text-xl text-center ">
+                            <div className="font-bold text-xl text-center">
                                 <div>Morning</div>
                                 <div className="text-blue-600">{unitFormat(weatherInfo.daily[0].temp.morn)}</div>
                             

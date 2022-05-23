@@ -2,7 +2,6 @@ const axios = require('axios')
 
 module.exports.weatherNews = (req, res) => {
 
-    console.log("In weather News")
     //use this so dont use calls to API but comment it out if we want to actually search!
     res.json({
         "search_metadata": {
@@ -191,10 +190,7 @@ module.exports.weatherNews = (req, res) => {
 
 module.exports.weatherSearch = (req, res) => {
     const location = req.params.location
-    console.log(`In Weather Search...location: ${location}`)
 
-
-    console.log("")
 
         // axios.get(`https://serpapi.com/search.json?engine=google&q=weather ${location}&tbm=nws&num=100&api_key=64a4be6709e78fac312237b98527e210e53de2234545a4cc457b9d35d3407295`)
         //     .then(results => {
@@ -209,7 +205,6 @@ module.exports.weatherSearch = (req, res) => {
         //                 res.json(err)
         //             })
             
-            console.log("")
             
             res.json({
                 "search_metadata": {

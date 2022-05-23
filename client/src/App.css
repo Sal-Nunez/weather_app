@@ -81,6 +81,7 @@ border: '#3c4043 1px solid' !important
         margin-right: 10px;
     }
 }
+
 @media screen and (min-width: 992px) {
     .show-desktop-small-image {
         width: 300px !important;
@@ -96,7 +97,7 @@ border: '#3c4043 1px solid' !important
     }
 } */
 
-@media screen and (min-width: 640px) {
+/* @media screen and (min-width: 640px) {
     .container-fluid{
         max-width: 640px;
     }
@@ -124,4 +125,4 @@ border: '#3c4043 1px solid' !important
     .container{
         max-width: 1536px;
     }
-}
+} */

@@ -73,11 +73,11 @@ const WeatherNews = (props) => {
                                                     <div className="me-3">
                                                         <div style={{ color: '#bdc1c6', fontSize: '18px' }} onClick={e => goToSite(news.link)} className="card-title hover:text-blue-custom cursor-pointer">{news.title}</div>
                                                     </div>
-                                                    <div style={{ color: '#9aa0a6', fontSize: '14px' }} className="me-3">{news.snippet}</div>
+                                                    <div onClick={e => goToSite(news.link)} style={{ color: '#9aa0a6', fontSize: '14px' }} className="me-3 cursor-pointer hover:text-blue-custom">{news.snippet}</div>
                                                     <span className="" style={{ color: '#9aa0a6', fontSize: '12px' }}>{news.date}</span>
 
                                                 </div>
-                                                <img src={news.thumbnail} style={{ height: '112px', MaxWidth: '112px' }} className="rounded-2xl" alt="..." />
+                                                <img onClick={e => goToSite(news.link)} src={news.thumbnail} style={{ height: '112px', MaxWidth: '112px' }} className="rounded-2xl cursor-pointer" alt="..." />
                                             </div>
                                     })
                                     :

@@ -45,9 +45,10 @@ module.exports.register = (req, res) => {
                 res.json({ error: "Email already exists", status: 400 })
             }
         })
-}
-
-module.exports.login = async (req, res) => {
+    }
+    
+    module.exports.login = async (req, res) => {
+    console.log(req.body.email)
     const user = await User.findOne({ email: req.body.email })
     if (user == null) return res.json({ error: { email: "Email not found" } })
     const pw = await bcrypt.compare(req.body.password, user.password)

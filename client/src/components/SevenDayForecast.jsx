@@ -11,11 +11,11 @@ const SevenDayForecast = props => {
         return null
     } else {
         return (
-            <div style={{ width: '652px' }}>
+            <div className="" style={{maxWidth: '992px', margin: 'auto' }}>
                 <h1>7 Day Forecast for {weatherInfo.state}</h1>
                 {
                     weatherInfo.daily.map((weather, i) =>
-                        <div key={i} style={{ width: '652px' }} className={`text-black my-1 font-bold p-2 d-flex justify-content-between bg-gradient-to-br
+                        <div key={i} className={`text-black my-1 font-bold p-2 show-desktop d-flex justify-content-between show-mobile bg-gradient-to-br
                             ${i % 2 === 0 && weather.weather[0].icon.includes("n") ? 'to-blue-300 from-gray-500' : i % 2 !== 0 && weather.weather[0].icon.includes("n") ? 'to-gray-500 from-blue-300' : null}
                             ${i % 2 === 0 && weather.weather[0].icon.includes("d") ? 'to-blue-300 from-yellow-100' : i % 2 !== 0 && weather.weather[0].icon.includes("d") ? 'to-yellow-100 from-blue-300' : null}`}>
                             <div>

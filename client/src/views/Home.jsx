@@ -62,10 +62,9 @@ const Home = (props) => {
 
     useEffect(() => {
         if (!weatherInfo) {
-            if (navigator.geolocation === {}) {
-                navigator.geolocation.getCurrentPosition(location)
-                function location(location) {
-                    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.coords.latitude}, ${location.coords.longitude}&key=AIzaSyDAmANHssnJ_6cRIuRyTbAITMkOUz9_EZo`)
+            if (user) {
+                if (user.locations.length > 0) {
+                    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${user.locations[0]}&key=AIzaSyDAmANHssnJ_6cRIuRyTbAITMkOUz9_EZo`)
                         .then(res => {
                             const lon = res.data.results[0].geometry.location.lng
                             const lat = res.data.results[0].geometry.location.lat
@@ -76,63 +75,70 @@ const Home = (props) => {
                                 .then(res => {
                                     setWeatherInfo({ ...res.data, city, state })
                                     history.push('/')
+                                    axios.get(`http://localhost:8000/api/weather/search/${state}`)
+                                        .then(res => {
+                                            // console.log(res.data, "line 26")
+                                            setWn(res.data)
+                                        })
+                                        .catch(err => console.error(err))
                                 })
                                 .catch(err => console.log(err))
                         })
                         .catch(err => console.error(err))
                 }
-            } else if (user) {
-                if (user.locations.length > 0) {
-                    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${user.locations[0]}&key=AIzaSyDAmANHssnJ_6cRIuRyTbAITMkOUz9_EZo`)
-            .then(res => {
-                const lon = res.data.results[0].geometry.location.lng
-                const lat = res.data.results[0].geometry.location.lat
-                const state = res.data.results[0].formatted_address
-                const city = res.data.results[0].address_components[0].long_name
-                setNewsWeatherLocation(state)
-                axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
-                    .then(res => {
-                        setWeatherInfo({ ...res.data, city, state })
-                        history.push('/')
-                        axios.get(`http://localhost:8000/api/weather/search/${state}`)
+            } else if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(location, user)
+                function location(location, user) {
+                    if (user === null) {
+                        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location.coords.latitude}, ${location.coords.longitude}&key=AIzaSyDAmANHssnJ_6cRIuRyTbAITMkOUz9_EZo`)
                             .then(res => {
-                                // console.log(res.data, "line 26")
-                                setWn(res.data)
-                            })
-                            .catch(err => console.error(err))
-                    })
-                    .catch(err => console.log(err))
-            })
-            .catch(err => console.error(err))
-                }
-            }
+                                    const lon = res.data.results[0].geometry.location.lng
+                                    const lat = res.data.results[0].geometry.location.lat
+                                    const state = res.data.results[0].formatted_address
+                                    const city = res.data.results[0].address_components[0].long_name
+                                    setNewsWeatherLocation(state)
+                                    axios.get(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${api_key}`)
+                                        .then(res => {
+                                                setWeatherInfo({ ...res.data, city, state })
+                                                history.push('/')
+                                            })
+                                            .catch(err => console.log(err))
+                                    })
+                                    .catch(err => console.error(err))
+                            }
+                        }
+                    }
 
         }
     }, [api_key, history, setWeatherInfo, weatherInfo, setNewsWeatherLocation, user, setWn, wn])
 
     return (
         <>
-            <div className="" style={{maxWidth: '1004px' }}>
+            <div className="" style={{ maxWidth: '992px', margin: 'auto' }}>
                 {
                     weatherInfo ?
-                        <div className="mt-3">
-                            <Link to="/" onClick={e => e.target.blur()} className={buttonTransformClass('')}>Current Weather</Link>
-                            <Link to="/forecast" onClick={e => e.target.blur()} className={buttonTransformClass('forecast')}>7 Day Forecast</Link>
-                            <Link to="/hourly" onClick={e => e.target.blur()} className={buttonTransformClass('hourly')}>Hourly Forecast</Link>
-                            {
-                                user ?
-                                    <button className="bg-blue-500 col-auto btn btn-block me-3 mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold " onClick={
-                                        () => {
-                                            setModalShow(true)
-                                            setLocationsError("")
-                                        }
-                                    }>
-                                        My Locations
-                                    </button>
-                                    : null
-                            }
-                            <LocationsForm locationsError={locationsError} setLocationsError={setLocationsError} setUser={setUser} user={user} show={modalShow} onHide={() => setModalShow(false)} />
-                        </div>
+                        <>
+                            <div className="mx-2">
+
+                                <div className="mt-3 d-flex flex-wrap">
+                                    <Link to="/" onClick={e => e.target.blur()} className={buttonTransformClass('')}>Current Weather</Link>
+                                    <Link to="/forecast" onClick={e => e.target.blur()} className={buttonTransformClass('forecast')}>7 Day Forecast</Link>
+                                    <Link to="/hourly" onClick={e => e.target.blur()} className={buttonTransformClass('hourly')}>Hourly Forecast</Link>
+                                    {
+                                        user ?
+                                            <button className="bg-blue-500 col-auto btn btn-block me-3 mb-3 transition duration-500 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-transparent hover:text-gray-200 hover:border-blue-500 font-bold " onClick={
+                                                () => {
+                                                    setModalShow(true)
+                                                    setLocationsError("")
+                                                }
+                                            }>
+                                                My Locations
+                                            </button>
+                                            : null
+                                    }
+                                </div>
+                            </div>
+                        </>
                         : null
                 }
                 <Switch>
@@ -150,7 +156,7 @@ const Home = (props) => {
                     </Route>
                 </Switch>
             </div>
-            <div style={{ maxWidth: '1004px'}} className="d-flex my-5 inside-modal">
+            <div style={{ maxWidth: '992px', margin: 'auto' }} className="d-flex my-5 inside-modal">
                 <div className="mb-3">
                     <img className="weatherNews show-mobile show-desktop" src={LandscapeFlower} alt="" />
                     <WeatherNews wn={wn} setWn={setWn} newsWeatherLocation={newsWeatherLocation} />
@@ -163,6 +169,7 @@ const Home = (props) => {
                     </div>
                 </div>
             </div>
+            <LocationsForm locationsError={locationsError} setLocationsError={setLocationsError} setUser={setUser} user={user} show={modalShow} onHide={() => setModalShow(false)} />
         </>
     )
 }
